@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://hakr1yraunts"]
+
+[ext_resource type="Script" uid="uid://5sbp4jldjr5p" path="res://scripts/coin.gd" id="1_i64fm"]
+[ext_resource type="Texture2D" uid="uid://cphw2isno1rl8" path="res://assets/brackeys_platformer_assets/sprites/0x72_DungeonTilesetII_v1.7.png" id="1_qbwpe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldkip"]
+atlas = ExtResource("1_qbwpe")
+region = Rect2(286, 384, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdkb7"]
+atlas = ExtResource("1_qbwpe")
+region = Rect2(295, 384, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x375"]
+atlas = ExtResource("1_qbwpe")
+region = Rect2(304, 384, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47asi"]
+atlas = ExtResource("1_qbwpe")
+region = Rect2(313, 384, 9, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfvix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldkip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdkb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x375")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47asi")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mq8aq"]
+radius = 2.2495215
+
+[node name="Coin" type="Area2D" unique_id=2082795538]
+z_index = 2
+collision_mask = 2
+script = ExtResource("1_i64fm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=324286154]
+position = Vector2(2, -13)
+scale = Vector2(5.6188083, 4.0854344)
+sprite_frames = SubResource("SpriteFrames_kfvix")
+autoplay = "default"
+frame_progress = 0.53779984
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=913247228]
+position = Vector2(5.0000005, -19)
+scale = Vector2(4.4453897, -5.913973)
+shape = SubResource("CircleShape2D_mq8aq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
