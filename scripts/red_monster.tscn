@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://ce4eeinv6v3bu"]
+
+[ext_resource type="Script" uid="uid://0vu7c3w0jl3k" path="res://red_monster.gd" id="1_gmicp"]
+[ext_resource type="Texture2D" uid="uid://cphw2isno1rl8" path="res://assets/brackeys_platformer_assets/sprites/0x72_DungeonTilesetII_v1.7.png" id="2_2lllx"]
+[ext_resource type="PackedScene" uid="uid://blvwdlr0punbb" path="res://scenes/killzone.tscn" id="3_215c6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw0oe"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(11, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbdec"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(44, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx0qf"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(77, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwcup"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(110, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31rlw"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(143, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31y2j"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(176, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sxtq"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(209, 429, 33, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6nle"]
+atlas = ExtResource("2_2lllx")
+region = Rect2(242, 429, 33, 39)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mq8aq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw0oe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbdec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jx0qf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwcup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31rlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31y2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sxtq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6nle")
+}],
+"loop": 1,
+"name": &"IDLE",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq8aq"]
+size = Vector2(19, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_51fql"]
+size = Vector2(20, 22)
+
+[node name="Red monster" type="Node2D" unique_id=286781695]
+script = ExtResource("1_gmicp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1591214380]
+position = Vector2(5, 0)
+sprite_frames = SubResource("SpriteFrames_mq8aq")
+animation = &"IDLE"
+autoplay = "IDLE"
+frame = 7
+frame_progress = 1.0
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=833070607]
+target_position = Vector2(-9, 0)
+collision_mask = 9
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=2086737555]
+target_position = Vector2(20, 0)
+collision_mask = 9
+
+[node name="killzone" parent="." unique_id=159860396 instance=ExtResource("3_215c6")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone" unique_id=397054180]
+position = Vector2(4.5, 1.5)
+shape = SubResource("RectangleShape2D_mq8aq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1360965277]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2076742308]
+position = Vector2(5, 1)
+shape = SubResource("RectangleShape2D_51fql")
+debug_color = Color(0.97536045, 0, 0.4234918, 0.41960785)
+
+[node name="Timer" type="Timer" parent="." unique_id=1572440840]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
